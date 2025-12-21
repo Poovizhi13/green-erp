@@ -1,11 +1,20 @@
-# backend/run.py - Start the Flask server
+# backend/run.py
+"""
+Entry point - starts Flask development server
+Run this file to start the backend
+
+Command: python run.py
+"""
+
 import os
 import sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from app import create_app
+# Add parent directory to Python path so we can import backend
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-app = create_app()
+from backend.app import create_app
+
+app = create_app(config_name=os.environ.get('FLASK_ENV', 'development'))
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(host='127.0.0.1', port=5000, debug=True)
