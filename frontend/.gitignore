@@ -1,3 +1,21 @@
+# --------------------
+# Python
+# --------------------
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# --------------------
+# Node / Frontend
+# --------------------
+node_modules/
+dist
+dist-ssr
+*.local
+
 # Logs
 logs
 *.log
@@ -15,10 +33,11 @@ dist-ssr
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
