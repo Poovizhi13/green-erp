@@ -17,7 +17,7 @@ def get_suppliers():
 @jwt_required()
 def create_supplier():
     """POST /api/suppliers"""
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     user = User.query.get(user_id)
     
     if user.role not in ['admin', 'procurement_manager']:
@@ -53,7 +53,7 @@ def get_supplier(supplier_id):
 @jwt_required()
 def update_supplier(supplier_id):
     """PUT /api/suppliers/<id>"""
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     user = User.query.get(user_id)
     
     if user.role not in ['admin', 'procurement_manager']:
@@ -77,7 +77,7 @@ def update_supplier(supplier_id):
 @jwt_required()
 def delete_supplier(supplier_id):
     """DELETE /api/suppliers/<id>"""
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     user = User.query.get(user_id)
     
     if user.role != 'admin':

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { itemsAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import '../styles/ItemsPage.css';
+import '../styles/Pages.css';
 
 const ItemsPage = () => {
   const [items, setItems] = useState([]);

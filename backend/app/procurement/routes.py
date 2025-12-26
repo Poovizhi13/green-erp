@@ -17,7 +17,7 @@ def get_purchase_orders():
 @jwt_required()
 def create_purchase_order():
     """POST /api/purchase-orders"""
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     user = User.query.get(user_id)
     
     if user.role not in ['admin', 'procurement_manager']:
@@ -77,7 +77,7 @@ def get_purchase_order(order_id):
 @jwt_required()
 def update_purchase_order(order_id):
     """PUT /api/purchase-orders/<id>"""
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     user = User.query.get(user_id)
     
     if user.role not in ['admin', 'procurement_manager']:

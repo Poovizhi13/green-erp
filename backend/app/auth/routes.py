@@ -66,7 +66,7 @@ def login():
     user = User.query.filter_by(username=data.get('username')).first()
     
     if user and user.check_password(data.get('password')):
-        access_token = create_access_token(identity=user.id)
+        access_token = create_access_token(identity=str(user.id))
         return jsonify({
             "access_token": access_token,
             "role": user.role
@@ -86,7 +86,7 @@ def get_current_user():
     """
     
     try:
-        user_id = get_jwt_identity()
+        user_id = int(get_jwt_identity())
         user = User.query.get(user_id)
         
         if not user:

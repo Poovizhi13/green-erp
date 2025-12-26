@@ -17,7 +17,7 @@ def get_items():
 @jwt_required()
 def create_item():
     """POST /api/items - Create new item"""
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     user = User.query.get(user_id)
     
     if user.role not in ['admin', 'procurement_manager']:
@@ -55,7 +55,7 @@ def get_item(item_id):
 @jwt_required()
 def update_item(item_id):
     """PUT /api/items/<id> - Update item"""
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     user = User.query.get(user_id)
     
     if user.role not in ['admin', 'procurement_manager']:
@@ -80,7 +80,7 @@ def update_item(item_id):
 @jwt_required()
 def delete_item(item_id):
     """DELETE /api/items/<id> - Delete item"""
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     user = User.query.get(user_id)
     
     if user.role != 'admin':

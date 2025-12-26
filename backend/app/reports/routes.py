@@ -10,7 +10,7 @@ reports_bp = Blueprint('reports', __name__)
 @jwt_required()
 def emissions_by_item():
     """GET /api/reports/emissions-by-item"""
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     user = User.query.get(user_id)
     
     if user.role not in ['admin', 'sustainability_manager']:
@@ -37,7 +37,7 @@ def emissions_by_item():
 @jwt_required()
 def emissions_by_supplier():
     """GET /api/reports/emissions-by-supplier"""
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     user = User.query.get(user_id)
     
     if user.role not in ['admin', 'sustainability_manager']:
