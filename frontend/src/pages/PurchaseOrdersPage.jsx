@@ -9,9 +9,7 @@ const PurchaseOrdersPage = () => {
   const [form, setForm] = useState({
     supplier_id: '',
     status: 'draft',
-    items: [
-      { item_id: '', quantity: 1, unit_price: 0 },
-    ],
+    items: [{ item_id: '', quantity: 1, unit_price: 0 }],
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -90,113 +88,145 @@ const PurchaseOrdersPage = () => {
 
   return (
     <div className="page">
-      <h2>Purchase Orders</h2>
+      <div className="page-header">
+        <h2 className="page-title">Purchase Orders</h2>
+      </div>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {loading && <p>Loading...</p>}
+      <div className="card">
+        {error && <p className="error">{error}</p>}
+        {loading && <p className="loading">Loading...</p>}
 
-      {/* Create PO form */}
-      <form onSubmit={handleCreate}>
-        <div>
-          <label>Supplier:</label>
-          <select
-            name="supplier_id"
-            value={form.supplier_id}
-            onChange={handleFormChange}
-            required
+        <form onSubmit={handleCreate}>
+          <div
+            style={{
+              display: 'flex',
+              gap: '12px',
+              marginBottom: '12px',
+              flexWrap: 'wrap',
+            }}
           >
-            <option value="">Select supplier</option>
-            {suppliers.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.name}
-              </option>
-            ))}
-          </select>
-        </div>
+            <div>
+              <label>Supplier:</label>
+              <br />
+              <select
+                name="supplier_id"
+                value={form.supplier_id}
+                onChange={handleFormChange}
+                required
+              >
+                <option value="">Select supplier</option>
+                {suppliers.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        <div>
-          <label>Status:</label>
-          <select
-            name="status"
-            value={form.status}
-            onChange={handleFormChange}
-          >
-            <option value="draft">Draft</option>
-            <option value="submitted">Submitted</option>
-            <option value="received">Received</option>
-          </select>
-        </div>
-
-        <h4>Items</h4>
-        {form.items.map((line, index) => (
-          <div key={index} style={{ display: 'flex', gap: '8px', marginBottom: '4px' }}>
-            <select
-              value={line.item_id}
-              onChange={(e) => handleItemChange(index, 'item_id', e.target.value)}
-              required
-            >
-              <option value="">Select item</option>
-              {items.map((it) => (
-                <option key={it.id} value={it.id}>
-                  {it.name} ({it.sku})
-                </option>
-              ))}
-            </select>
-            <input
-              type="number"
-              min="1"
-              placeholder="Qty"
-              value={line.quantity}
-              onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
-            />
-            <input
-              type="number"
-              min="0"
-              step="0.01"
-              placeholder="Unit price"
-              value={line.unit_price}
-              onChange={(e) => handleItemChange(index, 'unit_price', e.target.value)}
-            />
-            {form.items.length > 1 && (
-              <button type="button" onClick={() => removeLine(index)}>
-                X
-              </button>
-            )}
+            <div>
+              <label>Status:</label>
+              <br />
+              <select
+                name="status"
+                value={form.status}
+                onChange={handleFormChange}
+              >
+                <option value="draft">Draft</option>
+                <option value="submitted">Submitted</option>
+                <option value="received">Received</option>
+              </select>
+            </div>
           </div>
-        ))}
-        <button type="button" onClick={addLine}>
-          + Add Line
-        </button>
 
-        <div style={{ marginTop: '8px' }}>
-          <button type="submit">Create Purchase Order</button>
-        </div>
-      </form>
-
-      {/* Existing orders table */}
-      <h3 style={{ marginTop: '16px' }}>Existing Orders</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Supplier</th>
-            <th>Status</th>
-            <th>Total amount</th>
-            <th>Total CO₂</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map((o) => (
-            <tr key={o.id}>
-              <td>{o.id}</td>
-              <td>{o.supplier_name}</td>
-              <td>{o.status}</td>
-              <td>{o.total_amount}</td>
-              <td>{o.total_co2}</td>
-            </tr>
+          <h4>Items</h4>
+          {form.items.map((line, index) => (
+            <div
+              key={index}
+              style={{ display: 'flex', gap: '8px', marginBottom: '4px' }}
+            >
+              <select
+                value={line.item_id}
+                onChange={(e) =>
+                  handleItemChange(index, 'item_id', e.target.value)
+                }
+                required
+              >
+                <option value="">Select item</option>
+                {items.map((it) => (
+                  <option key={it.id} value={it.id}>
+                    {it.name} ({it.sku})
+                  </option>
+                ))}
+              </select>
+              <input
+                type="number"
+                min="1"
+                placeholder="Qty"
+                value={line.quantity}
+                onChange={(e) =>
+                  handleItemChange(index, 'quantity', e.target.value)
+                }
+              />
+              <input
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="Unit price"
+                value={line.unit_price}
+                onChange={(e) =>
+                  handleItemChange(index, 'unit_price', e.target.value)
+                }
+              />
+              {form.items.length > 1 && (
+                <button
+                  type="button"
+                  className="btn-secondary"
+                  onClick={() => removeLine(index)}
+                >
+                  X
+                </button>
+              )}
+            </div>
           ))}
-        </tbody>
-      </table>
+          <button
+            type="button"
+            className="btn-secondary"
+            onClick={addLine}
+          >
+            + Add Line
+          </button>
+
+          <div style={{ marginTop: '8px' }}>
+            <button type="submit" className="btn-primary">
+              Create Purchase Order
+            </button>
+          </div>
+        </form>
+
+        <h3 style={{ marginTop: '16px' }}>Existing Orders</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Supplier</th>
+              <th>Status</th>
+              <th>Total amount</th>
+              <th>Total CO₂</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((o) => (
+              <tr key={o.id}>
+                <td>{o.id}</td>
+                <td>{o.supplier_name}</td>
+                <td>{o.status}</td>
+                <td>{o.total_amount}</td>
+                <td>{o.total_co2}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

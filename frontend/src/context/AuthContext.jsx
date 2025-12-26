@@ -1,4 +1,3 @@
-// frontend/src/context/AuthContext.jsx
 import React, { createContext, useState, useEffect } from 'react';
 import { authAPI } from '../services/api';
 
@@ -9,21 +8,19 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
- useEffect(() => {
-  const token = localStorage.getItem('access_token');
-  const role = localStorage.getItem('user_role');
-  if (token && role) {
-    // Simple user object without calling /auth/me
-    setUser({ username: 'admin', role });
-    setIsLoggedIn(true);
-  }
-  setLoading(false);
-}, []);
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
+    const role = localStorage.getItem('user_role');
+    if (token && role) {
+      setUser({ username: 'admin', role });
+      setIsLoggedIn(true);
+    }
+    setLoading(false);
+  }, []);
 
   const login = async (username, password) => {
     try {
       const response = await authAPI.login(username, password);
-      // response has: { access_token, role }
       setUser({ username, role: response.role });
       setIsLoggedIn(true);
       return { success: true };

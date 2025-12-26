@@ -1,4 +1,3 @@
-// frontend/src/services/api.js
 import axios from 'axios';
 
 const API = axios.create({
@@ -51,22 +50,18 @@ export const itemsAPI = {
     const response = await API.get('/items');
     return response.data;
   },
-
   getItem: async (id) => {
     const response = await API.get(`/items/${id}`);
     return response.data;
   },
-
   createItem: async (itemData) => {
     const response = await API.post('/items', itemData);
     return response.data;
   },
-
   updateItem: async (id, itemData) => {
     const response = await API.put(`/items/${id}`, itemData);
     return response.data;
   },
-
   deleteItem: async (id) => {
     const response = await API.delete(`/items/${id}`);
     return response.data;
@@ -78,17 +73,14 @@ export const suppliersAPI = {
     const response = await API.get('/suppliers');
     return response.data;
   },
-
   createSupplier: async (data) => {
     const response = await API.post('/suppliers', data);
     return response.data;
   },
-
   updateSupplier: async (id, data) => {
     const response = await API.put(`/suppliers/${id}`, data);
     return response.data;
   },
-
   deleteSupplier: async (id) => {
     const response = await API.delete(`/suppliers/${id}`);
     return response.data;
@@ -100,12 +92,10 @@ export const ordersAPI = {
     const response = await API.get('/purchase-orders');
     return response.data;
   },
-
   createPurchaseOrder: async (data) => {
     const response = await API.post('/purchase-orders', data);
     return response.data;
   },
-
   updatePurchaseOrder: async (id, data) => {
     const response = await API.put(`/purchase-orders/${id}`, data);
     return response.data;
@@ -117,7 +107,6 @@ export const reportsAPI = {
     const response = await API.get('/reports/emissions-by-item');
     return response.data;
   },
-
   getEmissionsBySupplier: async () => {
     const response = await API.get('/reports/emissions-by-supplier');
     return response.data;

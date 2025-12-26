@@ -31,52 +31,56 @@ const ReportsPage = () => {
 
   return (
     <div className="page">
-      <h2>Emissions Reports</h2>
+      <div className="page-header">
+        <h2 className="page-title">Emissions Reports</h2>
+      </div>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {loading && <p>Loading...</p>}
+      <div className="card">
+        {error && <p className="error">{error}</p>}
+        {loading && <p className="loading">Loading...</p>}
 
-      <h3>Emissions by Item</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>SKU</th>
-            <th>CO₂ per unit</th>
-            <th>Total CO₂ from orders</th>
-          </tr>
-        </thead>
-        <tbody>
-          {byItem.map((row) => (
-            <tr key={row.item_id}>
-              <td>{row.item_name}</td>
-              <td>{row.sku}</td>
-              <td>{row.co2_per_unit}</td>
-              <td>{row.total_co2_from_orders}</td>
+        <h3>Emissions by Item</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>SKU</th>
+              <th>CO₂ per unit</th>
+              <th>Total CO₂ from orders</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {byItem.map((row) => (
+              <tr key={row.item_id}>
+                <td>{row.item_name}</td>
+                <td>{row.sku}</td>
+                <td>{row.co2_per_unit}</td>
+                <td>{row.total_co2_from_orders}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-      <h3 style={{ marginTop: '16px' }}>Emissions by Supplier</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Supplier</th>
-            <th>Total CO₂</th>
-            <th>Order count</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bySupplier.map((row) => (
-            <tr key={row.supplier_id}>
-              <td>{row.supplier_name}</td>
-              <td>{row.total_co2}</td>
-              <td>{row.order_count}</td>
+        <h3 style={{ marginTop: '16px' }}>Emissions by Supplier</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Supplier</th>
+              <th>Total CO₂</th>
+              <th>Order count</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {bySupplier.map((row) => (
+              <tr key={row.supplier_id}>
+                <td>{row.supplier_name}</td>
+                <td>{row.total_co2}</td>
+                <td>{row.order_count}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

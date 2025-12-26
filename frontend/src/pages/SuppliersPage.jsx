@@ -59,72 +59,80 @@ const SuppliersPage = () => {
 
   return (
     <div className="page">
-      <h2>Suppliers</h2>
+      <div className="page-header">
+        <h2 className="page-title">Suppliers</h2>
+      </div>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {loading && <p>Loading...</p>}
+      <div className="card">
+        {error && <p className="error">{error}</p>}
+        {loading && <p className="loading">Loading...</p>}
 
-      <form onSubmit={handleCreate}>
-        <input
-          name="name"
-          placeholder="Name"
-          value={form.name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="contact_email"
-          placeholder="Email"
-          value={form.contact_email}
-          onChange={handleChange}
-        />
-        <input
-          name="phone"
-          placeholder="Phone"
-          value={form.phone}
-          onChange={handleChange}
-        />
-        <input
-          name="address"
-          placeholder="Address"
-          value={form.address}
-          onChange={handleChange}
-        />
-        <input
-          name="sustainability_score"
-          placeholder="Sustainability score"
-          value={form.sustainability_score}
-          onChange={handleChange}
-        />
-        <input
-          name="certifications"
-          placeholder="Certifications"
-          value={form.certifications}
-          onChange={handleChange}
-        />
-        <button type="submit">Add Supplier</button>
-      </form>
+        <form onSubmit={handleCreate} style={{ marginBottom: '12px' }}>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            <input
+              name="name"
+              placeholder="Name"
+              value={form.name}
+              onChange={handleChange}
+              required
+            />
+            <input
+              name="contact_email"
+              placeholder="Email"
+              value={form.contact_email}
+              onChange={handleChange}
+            />
+            <input
+              name="phone"
+              placeholder="Phone"
+              value={form.phone}
+              onChange={handleChange}
+            />
+            <input
+              name="address"
+              placeholder="Address"
+              value={form.address}
+              onChange={handleChange}
+            />
+            <input
+              name="sustainability_score"
+              placeholder="Score"
+              value={form.sustainability_score}
+              onChange={handleChange}
+            />
+            <input
+              name="certifications"
+              placeholder="Certifications"
+              value={form.certifications}
+              onChange={handleChange}
+            />
+            <button type="submit" className="btn-primary">
+              Add Supplier
+            </button>
+          </div>
+        </form>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {suppliers.map((s) => (
-            <tr key={s.id}>
-              <td>{s.name}</td>
-              <td>{s.contact_email}</td>
-              <td>{s.phone}</td>
-              <td>{s.sustainability_score}</td>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Score</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {suppliers.map((s) => (
+              <tr key={s.id}>
+                <td>{s.name}</td>
+                <td>{s.contact_email}</td>
+                <td>{s.phone}</td>
+                <td>{s.sustainability_score}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
