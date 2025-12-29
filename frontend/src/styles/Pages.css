@@ -27,6 +27,8 @@
   padding: 16px 20px;
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
   border: 1px solid #e5e7eb;
+  min-width: 180vh;
+  margin-left: 70px;
 }
 
 /* Buttons */
