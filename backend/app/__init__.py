@@ -41,7 +41,8 @@ def create_app(config_name='development'):
     app.config.from_object(config[config_name])
     
     # Enable CORS (allow frontend to communicate)
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
+    CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5173", "http://127.0.0.1:5173"]}})
+
     
     # Initialize SQLAlchemy with this app
     db.init_app(app)
