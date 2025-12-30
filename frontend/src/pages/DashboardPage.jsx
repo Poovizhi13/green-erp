@@ -30,6 +30,9 @@ const DashboardPage = () => {
       route: '/suppliers',
       roles: ['admin', 'procurement_manager'],
     },
+  ];
+
+   const modules1 = [
     {
       id: 'orders',
       title: 'Purchase Orders',
@@ -52,6 +55,10 @@ const DashboardPage = () => {
     m.roles.includes(user?.role)
   );
 
+   const availableModules1 = modules1.filter((m) =>
+    m.roles.includes(user?.role)
+  );
+
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
@@ -65,6 +72,7 @@ const DashboardPage = () => {
       </header>
 
       <main className="dashboard-main">
+        <div classname="allmodule"> 
         <section className="modules">
           <h2>Available Modules</h2>
           <div className="modules-grid">
@@ -83,6 +91,26 @@ const DashboardPage = () => {
             ))}
           </div>
         </section>
+        <div>
+        <section className="modules1">
+          <div className="modules1-grid">
+            {availableModules1.map((module) => (
+              <div key={module.id} className="module-card">
+                <div className="module-icon">{module.icon}</div>
+                <h3>{module.title}</h3>
+                <p>{module.description}</p>
+                <button
+                  onClick={() => navigate(module.route)}
+                  className="btn-module"
+                >
+                  Open →
+                </button>
+              </div>
+            ))}
+          </div>
+        </section>
+        </div>
+        </div>
       </main>
     </div>
   );
