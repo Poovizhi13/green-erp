@@ -1,8 +1,9 @@
 /* Layout */
 
 .page {
-  padding: 24px;
-  max-width: 100%;
+  min-height: 100vh;
+  padding: 24px 32px;
+  width: 100%;
   margin: 0 auto;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
