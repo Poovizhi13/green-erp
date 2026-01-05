@@ -1,7 +1,8 @@
 # backend/app/reports/routes.py
 from flask import Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from backend.app.models import User, Item, PurchaseOrder, PurchaseOrderItem
+from app import db 
+from backend.app.models import User, Item, PurchaseOrder, PurchaseOrderItem, Supplier
 from sqlalchemy import func
 
 reports_bp = Blueprint('reports', __name__)
@@ -63,3 +64,45 @@ def emissions_by_supplier():
     ]
     
     return jsonify(data), 200
+
+@reports_bp.route('/ai-recommendations', methods=['GET'])
+@jwt_required()
+def ai_recommendations():
+    """🤖 AI Module - FIXED VERSION"""
+    
+    # ✅ SIMPLIFIED: Get ANY orders with emissions
+    orders_with_emissions = db.session.query(PurchaseOrder).filter(
+        PurchaseOrder.total_co2 > 0
+    ).order_by(PurchaseOrder.total_co2.desc()).limit(3).all()
+    
+    recommendations = []
+    for order in orders_with_emissions:
+        reco = {
+            'high_emission_item': f"Order #{order.id} ({order.supplier.name})",
+            'total_co2': float(order.total_co2 or 0),
+            'suggestions': [
+                "✅ Switch to low-CO2 suppliers",
+                "✅ Review high-emission purchase orders", 
+                f"✅ Target 20% reduction ({order.total_co2*0.2:.1f} kg CO2e)"
+            ],
+            'potential_savings': float(order.total_co2 * 0.3)
+        }
+        recommendations.append(reco)
+    
+    # ✅ If no orders, show generic advice
+    if not recommendations:
+        recommendations = [{
+            'high_emission_item': 'No Data Yet',
+            'total_co2': 0,
+            'suggestions': [
+                "📈 Create purchase orders to unlock AI insights",
+                "✅ Add items with CO2 factors first",
+                "💡 AI analyzes your real procurement data"
+            ],
+            'potential_savings': 0
+        }]
+    
+    return jsonify({
+        'recommendations': recommendations,
+        'ai_score': len(orders_with_emissions) * 20  # Dynamic score
+    }), 200

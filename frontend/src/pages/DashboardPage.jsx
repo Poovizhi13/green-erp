@@ -1,17 +1,23 @@
-// frontend/src/pages/DashboardPage.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';  // ✅ Fixed import
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { reportsAPI } from '../services/api';
 import '../styles/DashboardPage.css';
 
 const DashboardPage = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
+  const [metrics, setMetrics] = useState({ total_emissions: 0 });
+
+  useEffect(() => {
+    reportsAPI.getEmissionsByItem()
+      .then(data => {
+        const total = data.reduce((sum, item) => sum + (item.total_co2_from_orders || 0), 0);
+        setMetrics({ total_emissions: total });
+      })
+      .catch(() => setMetrics({ total_emissions: 0 }));
+  }, []);
 
   const modules = [
     {
@@ -41,7 +47,7 @@ const DashboardPage = () => {
     {
       id: 'reports',
       title: 'Reports',
-      description: 'View emissions and metrics',
+      description: `${metrics.total_emissions.toFixed(1)} kg CO₂e`,  // ✅ Fixed
       icon: '📊',
       route: '/reports',
       roles: ['admin', 'sustainability_manager'],
@@ -51,6 +57,11 @@ const DashboardPage = () => {
   const availableModules = modules.filter((m) =>
     m.roles.includes(user?.role)
   );
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <div className="dashboard-container">
