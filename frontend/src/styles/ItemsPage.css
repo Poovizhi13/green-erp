@@ -201,6 +201,6 @@
   font-size: 18px;
 }
 
-.btn-submit:hover {
-  background: #2980b9;
+.btn-back:hover {
+  opacity: 0.6;
 }

@@ -58,11 +58,19 @@ const SuppliersPage = () => {
   };
 
   return (
+    <div className="page-container">
+       <header className="items-header">
+        <div>
+          <h1>Suppliers</h1>
+          <button
+            onClick={() => navigate('/dashboard')}
+            className="btn-back"
+          >
+            ← Back to Dashboard
+          </button>
+        </div>
+      </header>
     <div className="page">
-      <div className="page-header">
-        <h1 className="page-title">Suppliers</h1>
-      </div>
-
       <div className="card">
         {error && <p className="error">{error}</p>}
         {loading && <p className="loading">Loading...</p>}
@@ -133,6 +141,7 @@ const SuppliersPage = () => {
           </tbody>
         </table>
       </div>
+    </div>
     </div>
   );
 };
