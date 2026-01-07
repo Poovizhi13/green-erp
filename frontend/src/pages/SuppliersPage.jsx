@@ -60,7 +60,7 @@ const SuppliersPage = () => {
   return (
     <div className="page">
       <div className="page-header">
-        <h2 className="page-title">Suppliers</h2>
+        <h1 className="page-title">Suppliers</h1>
       </div>
 
       <div className="card">
