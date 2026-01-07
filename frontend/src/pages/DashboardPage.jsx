@@ -23,7 +23,7 @@ const DashboardPage = () => {
     {
       id: 'items',
       title: 'Inventory',
-      description: 'Manage items and CO2 emissions',
+      description: 'Manage items',
       icon: '📦',
       route: '/items',
       roles: ['admin', 'procurement_manager'],
@@ -68,7 +68,7 @@ const DashboardPage = () => {
       <header className="dashboard-header">
         <div>
           <h1>Green-ERP Dashboard</h1>
-          <p>Welcome, <strong>{user?.username}</strong> ({user?.role})</p>
+          <p>Welcome, <strong>{user?.username}</strong></p>
         </div>
         <button onClick={handleLogout} className="btn-logout">
           Logout
@@ -77,12 +77,12 @@ const DashboardPage = () => {
 
       <main className="dashboard-main">
         <section className="modules">
-          <h2>Available Modules</h2>
+          <h2>Modules</h2>
           <div className="modules-grid">
             {availableModules.map((module) => (
               <div key={module.id} className="module-card">
                 <div className="module-icon">{module.icon}</div>
-                <h3>{module.title}</h3>
+                <h2>{module.title}</h2>
                 <p>{module.description}</p>
                 <button
                   onClick={() => navigate(module.route)}
