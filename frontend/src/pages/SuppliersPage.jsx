@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { suppliersAPI } from '../services/api';
 import '../styles/Pages.css';
 
 const SuppliersPage = () => {
+  const navigate = useNavigate();
   const [suppliers, setSuppliers] = useState([]);
   const [form, setForm] = useState({
     name: '',
